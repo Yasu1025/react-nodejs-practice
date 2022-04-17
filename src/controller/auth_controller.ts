@@ -3,6 +3,7 @@ import { getManager } from 'typeorm'
 import bcryptjs from 'bcryptjs'
 import { RegisterValidation } from '../validation/register_validation'
 import { User } from '../entity/user_entity'
+import { sign, verify } from 'jsonwebtoken'
 
 export const Register = async (req: Request, res: Response) => {
   const { body } = req
@@ -40,7 +41,39 @@ export const Login = async (req: Request, res: Response) => {
     return res.status(404).send({ message: 'Invalid credentials...' })
   }
 
+  const payload = { id: user.id }
+  const token = sign(payload, 'secret')
+
+  res.cookie('jwt', token, {
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000, // 1day
+  })
   const { password, ...data } = user
 
-  res.send(data)
+  res.send({ message: 'Login success!!' })
+}
+
+export const AuthenticatedUser = async (req: Request, res: Response) => {
+  try {
+    const jwt = req.cookies['jwt']
+    const payload: any = verify(jwt, 'secret')
+    if (!payload) {
+      return res.status(401).send({ message: 'Unauthenticated....' })
+    }
+
+    const repository = getManager().getRepository(User)
+    const user = await repository.findOneBy({ id: payload.id })
+
+    return res.send(user)
+  } catch (e) {
+    return res.status(401).send({ message: 'Unauthenticated....' })
+  }
+}
+
+export const Logout = async (req: Request, res: Response) => {
+  res.cookie('jwt', '', { maxAge: 0 })
+
+  res.send({
+    message: 'Logout success!!!',
+  })
 }
