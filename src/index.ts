@@ -12,7 +12,6 @@ const CORS_OPT = {
 }
 
 createConnection(ormConfig).then(connection => {
-  console.log(connection)
   const app = express()
 
   app.use(express.json())
