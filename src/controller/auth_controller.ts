@@ -3,7 +3,7 @@ import { getManager } from 'typeorm'
 import bcryptjs from 'bcryptjs'
 import { RegisterValidation } from '../validation/register_validation'
 import { User } from '../entity/user_entity'
-import { sign, verify } from 'jsonwebtoken'
+import { sign } from 'jsonwebtoken'
 
 export const Register = async (req: Request, res: Response) => {
   const { body } = req
@@ -64,4 +64,36 @@ export const Logout = async (req: Request, res: Response) => {
   res.send({
     message: 'Logout success!!!',
   })
+}
+
+export const UpdateInfo = async (req: Request, res: Response) => {
+  const user = req['user']
+
+  const repository = getManager().getRepository(User)
+  await repository.update(user.id, {
+    first_name: req.body.first_name,
+    last_name: req.body.last_name,
+    email: req.body.email,
+  })
+
+  const { password, ...data } = await repository.findOneById(user.id)
+  res.send(data)
+}
+
+export const UpdatePassword = async (req: Request, res: Response) => {
+  const user = req['user']
+
+  if (req.body.password !== req.body.password_confirm) {
+    return res.status(400).send({
+      message: 'Password are not matched...',
+    })
+  }
+
+  const repository = getManager().getRepository(User)
+  await repository.update(user.id, {
+    password: await bcryptjs.hash(req.body.password, 10),
+  })
+
+  const data = await repository.findOneById(user.id)
+  res.send(data)
 }
