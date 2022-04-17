@@ -5,7 +5,9 @@ import bcryptjs from 'bcryptjs'
 
 export const Users = async (req: Request, res: Response) => {
   const repository = getManager().getRepository(User)
-  const users = await repository.find()
+  const users = await repository.find({
+    relations: ['role'],
+  })
 
   res.send(
     users.map(u => {
@@ -32,6 +34,7 @@ export const CreateUser = async (req: Request, res: Response) => {
     last_name: body.last_name,
     email: body.email,
     password: hashedPassword,
+    role: { id: role_id },
   })
 
   res.status(201).send(data)
@@ -44,6 +47,7 @@ export const UpdateUser = async (req: Request, res: Response) => {
     first_name: body.first_name,
     last_name: body.last_name,
     email: body.email,
+    role: { id: role_id },
   })
 
   const { password, ...user } = await repository.findOneById(req.params.id)
