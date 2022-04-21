@@ -14,6 +14,8 @@ import {
   GetUser,
   UpdateUser,
 } from '../controller/user_controller'
+import { Permissions } from '../controller/permission_controller'
+import { Roles } from '../controller/role_controller'
 
 export const routes = (router: Router) => {
   router.post('/api/register', Register)
@@ -27,4 +29,6 @@ export const routes = (router: Router) => {
   router.post('/api/users', AuthMiddleware, CreateUser)
   router.put('/api/users/:id', AuthMiddleware, UpdateUser)
   router.delete('/api/users/:id', AuthMiddleware, DeleteUser)
+  router.get('/api/permissions', AuthMiddleware, Permissions)
+  router.get('/api/roles', AuthMiddleware, Roles)
 }
