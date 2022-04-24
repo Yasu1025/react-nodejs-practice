@@ -30,6 +30,7 @@ import {
   UpdateRole,
 } from '../controller/role_controller'
 import { UploadImage } from '../controller/image_controller'
+import express from 'express'
 
 export const routes = (router: Router) => {
   router.post('/api/register', Register)
@@ -61,4 +62,5 @@ export const routes = (router: Router) => {
   router.delete('/api/products/:id', AuthMiddleware, DeleteProduct)
 
   router.post('/api/upload', AuthMiddleware, UploadImage)
+  router.use('/api/uploads', express.static('./uploads'))
 }
