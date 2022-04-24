@@ -29,6 +29,7 @@ import {
   GetRole,
   UpdateRole,
 } from '../controller/role_controller'
+import { UploadImage } from '../controller/image_controller'
 
 export const routes = (router: Router) => {
   router.post('/api/register', Register)
@@ -58,4 +59,6 @@ export const routes = (router: Router) => {
   router.post('/api/products', AuthMiddleware, CreateProduct)
   router.put('/api/products/:id', AuthMiddleware, UpdateProduct)
   router.delete('/api/products/:id', AuthMiddleware, DeleteProduct)
+
+  router.post('/api/upload-image', AuthMiddleware, UploadImage)
 }
