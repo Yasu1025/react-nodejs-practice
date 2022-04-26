@@ -65,5 +65,5 @@ export const routes = (router: Router) => {
   router.post('/api/upload', AuthMiddleware, UploadImage)
   router.use('/api/uploads', express.static('./uploads'))
   // Order
-  router.post('/api/orders', AuthMiddleware, Orders)
+  router.get('/api/orders', AuthMiddleware, Orders)
 }
