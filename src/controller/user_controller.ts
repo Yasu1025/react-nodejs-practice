@@ -44,7 +44,7 @@ export const CreateUser = async (req: Request, res: Response) => {
     last_name: body.last_name,
     email: body.email,
     password: hashedPassword,
-    role: { id: role_id },
+    role: { id: role_id || 3 },
   })
 
   res.status(201).send(data)
