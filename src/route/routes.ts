@@ -31,7 +31,7 @@ import {
 } from '../controller/role_controller'
 import { UploadImage } from '../controller/image_controller'
 import express from 'express'
-import { Orders } from '../controller/order_controller'
+import { Orders, ExportOrders } from '../controller/order_controller'
 
 export const routes = (router: Router) => {
   // AUTH
@@ -66,4 +66,5 @@ export const routes = (router: Router) => {
   router.use('/api/uploads', express.static('./uploads'))
   // Order
   router.get('/api/orders', AuthMiddleware, Orders)
+  router.post('/api/orders/export', AuthMiddleware, ExportOrders)
 }
