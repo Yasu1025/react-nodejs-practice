@@ -1,5 +1,6 @@
 import { VFC, memo } from 'react'
+import { AWrapper } from '../components/layouts/AWrapper'
 
 export const Dashboard: VFC = memo(() => {
-  return <div>dashboard</div>
+  return <AWrapper>dashboard</AWrapper>
 })
