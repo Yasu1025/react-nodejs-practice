@@ -5,6 +5,7 @@ import { Users } from '../pages/users/Users'
 import { Register } from '../pages/Register'
 import { Login } from '../pages/Login'
 import { UserCreate } from '../pages/users/UserCreate'
+import { UserEdit } from '../pages/users/UserEdit'
 
 export const AppRouter: VFC = memo(() => (
   <Routes>
@@ -13,5 +14,6 @@ export const AppRouter: VFC = memo(() => (
     <Route path="/login" element={<Login />} />
     <Route path="/users" element={<Users />} />
     <Route path="/users/create" element={<UserCreate />} />
+    <Route path="/users/:id" element={<UserEdit />} />
   </Routes>
 ))

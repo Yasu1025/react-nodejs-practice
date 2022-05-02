@@ -21,6 +21,7 @@ export const Users: VFC = memo(() => {
   const onDelete = async (id: number) => {
     if (window.confirm('Are you sure you want to delete this record?')) {
       await axios.delete(`/api/users/${id}`)
+      setUsers(users.filter((u: User) => u.id !== id))
     }
   }
 
@@ -44,7 +45,7 @@ export const Users: VFC = memo(() => {
       setLastPage(data.meta.last_page)
     }
     getUsers()
-  }, [page, onDelete])
+  }, [page])
 
   return (
     <AWrapper>
@@ -76,6 +77,12 @@ export const Users: VFC = memo(() => {
                 <td>{user.role && user.role.name}</td>
                 <td>
                   <div className="btn-group mr-2">
+                    <Link
+                      to={`/users/${user.id}`}
+                      className="btn btn-sm btn-outline-secondary"
+                    >
+                      Edit
+                    </Link>
                     <button
                       className="btn btn-sm btn-outline-danger"
                       onClick={() => onDelete(user.id)}

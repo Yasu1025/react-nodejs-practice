@@ -29,7 +29,10 @@ export const Users = async (req: Request, res: Response) => {
 
 export const GetUser = async (req: Request, res: Response) => {
   const repository = getManager().getRepository(User)
-  const { password, ...user } = await repository.findOneById(req.params.id)
+  const { password, ...user } = await repository.findOne({
+    where: { id: +req.params.id },
+    relations: ['role'],
+  })
 
   res.send(user)
 }

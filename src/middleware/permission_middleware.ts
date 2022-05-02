@@ -22,8 +22,6 @@ export const PermissionMiddleware = (access: AccessType) => {
       }
     }
 
-    console.log(user)
-
     next()
   }
 }
