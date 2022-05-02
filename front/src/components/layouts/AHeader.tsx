@@ -8,7 +8,15 @@ export const AHeader: VFC = memo(() => {
   useEffect(() => {
     const getuser = async () => {
       const { data } = await axios.get('/api/user')
-      setUser(new User(data.id, data.first_name, data.last_name, data.email))
+      setUser(
+        new User(
+          data.id,
+          data.first_name,
+          data.last_name,
+          data.email,
+          data.role
+        )
+      )
     }
 
     getuser()
