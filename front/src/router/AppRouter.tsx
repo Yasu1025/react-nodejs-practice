@@ -9,6 +9,9 @@ import { UserEdit } from '../pages/users/UserEdit'
 import { Roles } from '../pages/roles/Roles'
 import { RoleCreate } from '../pages/roles/RoleCreate'
 import { RoleEdit } from '../pages/roles/RoleEdit'
+import { ProductsCreate } from '../pages/products/ProductCreate'
+import { ProductsEdit } from '../pages/products/ProductEdit'
+import { Products } from '../pages/products/Products'
 
 export const AppRouter: VFC = memo(() => (
   <Routes>
@@ -21,5 +24,8 @@ export const AppRouter: VFC = memo(() => (
     <Route path="/roles" element={<Roles />} />
     <Route path="/roles/create" element={<RoleCreate />} />
     <Route path="/roles/:id" element={<RoleEdit />} />
+    <Route path="/products" element={<Products />} />
+    <Route path="/products/create" element={<ProductsCreate />} />
+    <Route path="/products/:id" element={<ProductsEdit />} />
   </Routes>
 ))
