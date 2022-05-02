@@ -13,6 +13,11 @@ export const AHeader: VFC = memo(() => {
 
     getuser()
   }, [])
+
+  const onLogout = async () => {
+    await axios.post('/api/logout', {})
+  }
+
   return (
     <header className="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
       <Link to="/" className="navbar-brand col-md-3 col-lg-2 me-0 px-3">
@@ -20,10 +25,15 @@ export const AHeader: VFC = memo(() => {
       </Link>
       <ul className="navbar-nav px-3">
         <li className="nav-item text-nowrap">
-          <a className="nav-link">{`${user?.first_name} ${user?.last_name}`}</a>
+          <Link
+            to="profile"
+            className="nav-link"
+          >{`${user?.first_name} ${user?.last_name}`}</Link>
         </li>
         <li className="nav-item text-nowrap">
-          <a className="nav-link">Log out</a>
+          <Link to="login" className="nav-link" onClick={onLogout}>
+            Log out
+          </Link>
         </li>
       </ul>
     </header>
