@@ -1,93 +1,88 @@
 import { VFC, memo, useState, useEffect } from 'react'
 import { AWrapper } from '../../components/layouts/AWrapper'
 import axios from 'axios'
-import { Role } from '../../models/Role'
-import { useNavigate, useParams, Link } from 'react-router-dom'
-import { User } from '../../models/User'
+import { useNavigate, Link, useParams } from 'react-router-dom'
+import { ImageUpload } from '../../components/ImageUpload'
+import { Product } from '../../models/Product'
 
 export const ProductsEdit: VFC = memo(() => {
   const navigate = useNavigate()
-  const userId = useParams().id
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [email, setEmail] = useState('')
-  const [roleId, setRoleId] = useState(0)
-  const [roles, setRoles] = useState<Role[]>([])
+  const productId = useParams().id
+  const [name, setName] = useState('')
+  const [description, setDescription] = useState('')
+  const [image, setImage] = useState('')
+  const [price, setPrice] = useState(0)
 
   const onSubmit = async (e: React.MouseEvent<HTMLFormElement>) => {
     e.preventDefault()
-    await axios.put(`/api/users/${userId}`, {
-      first_name: firstName,
-      last_name: lastName,
-      email,
-      role_id: roleId,
+    await axios.put(`/api/products/${productId}`, {
+      name,
+      description,
+      image,
+      price,
     })
 
-    navigate('/users')
+    navigate('/products')
   }
 
   useEffect(() => {
-    const getUser = async () => {
-      const { data }: { data: User } = await axios.get(`/api/users/${userId}`)
-      setFirstName(data.first_name)
-      setLastName(data.last_name)
-      setEmail(data.email)
-      setRoleId(data.role.id)
-    }
-    const getRoles = async () => {
-      const { data } = await axios.get('/api/roles')
-      setRoles(data)
+    const getProduct = async () => {
+      const { data }: { data: Product } = await axios.get(
+        `/api/products/${productId}`
+      )
+      console.log(data)
+      setName(data.name)
+      setDescription(data.description)
+      setImage(data.image)
+      setPrice(data.price)
     }
 
-    getUser()
-    getRoles()
+    getProduct()
   }, [])
 
   return (
     <AWrapper>
       <form onSubmit={onSubmit}>
         <div className="mb-3">
-          <label>First Name</label>
+          <label>Name</label>
           <input
             className="form-control"
-            defaultValue={firstName}
-            onChange={e => setFirstName(e.target.value)}
+            defaultValue={name}
+            onChange={e => setName(e.target.value)}
           />
         </div>
         <div className="mb-3">
-          <label>Last Name</label>
-          <input
+          <label>Description</label>
+          <textarea
             className="form-control"
-            defaultValue={lastName}
-            onChange={e => setLastName(e.target.value)}
-          />
+            defaultValue={description}
+            onChange={e => setDescription(e.target.value)}
+          ></textarea>
         </div>
         <div className="mb-3">
-          <label>Email</label>
-          <input
-            type="email"
-            className="form-control"
-            defaultValue={email}
-            onChange={e => setEmail(e.target.value)}
-          />
+          <label>Image</label>
+          <div className="input-group">
+            <input
+              className="form-control"
+              value={image}
+              onChange={e => setImage(e.target.value)}
+            />
+            <ImageUpload uploaded={setImage} />
+          </div>
         </div>
         <div className="mb-3">
-          <label>Role</label>
-          <select
+          <label>Price</label>
+          <input
+            type="number"
             className="form-control"
-            value={roleId}
-            onChange={e => setRoleId(+e.target.value)}
-          >
-            {roles.map(role => (
-              <option key={role.id} value={role.id}>
-                {role.name}
-              </option>
-            ))}
-          </select>
+            value={price}
+            onChange={e => setPrice(+e.target.value)}
+          />
         </div>
+
         <div className="btn-group mr-2">
           <button className="btn btn-outline-secondary">Save</button>
-          <Link to="/users" className="btn btn-outline-secondary">
+          <Link to="/products" className="btn btn-outline-secondary">
             Cancel
           </Link>
         </div>

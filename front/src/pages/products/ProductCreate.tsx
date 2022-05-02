@@ -1,4 +1,4 @@
-import { VFC, memo, useState, useEffect } from 'react'
+import { VFC, memo, useState } from 'react'
 import { AWrapper } from '../../components/layouts/AWrapper'
 import axios from 'axios'
 import { useNavigate, Link } from 'react-router-dom'
@@ -22,15 +22,6 @@ export const ProductsCreate: VFC = memo(() => {
 
     navigate('/products')
   }
-
-  // useEffect(() => {
-  //   const getRoles = async () => {
-  //     const { data } = await axios.get('/api/roles')
-  //     setRoles(data)
-  //   }
-
-  //   getRoles()
-  // }, [])
 
   return (
     <AWrapper>
