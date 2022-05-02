@@ -1,14 +1,14 @@
 import { memo, useEffect, VFC, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import { User } from '../../types/User'
+import { User } from '../../models/User'
 
 export const AHeader: VFC = memo(() => {
-  const [user, setUser] = useState<User | null>(null)
+  const [user, setUser] = useState(new User())
   useEffect(() => {
     const getuser = async () => {
       const { data } = await axios.get('/api/user')
-      setUser(data)
+      setUser(new User(data.id, data.first_name, data.last_name, data.email))
     }
 
     getuser()
@@ -25,10 +25,9 @@ export const AHeader: VFC = memo(() => {
       </Link>
       <ul className="navbar-nav px-3">
         <li className="nav-item text-nowrap">
-          <Link
-            to="profile"
-            className="nav-link"
-          >{`${user?.first_name} ${user?.last_name}`}</Link>
+          <Link to="profile" className="nav-link">
+            {user?.name}
+          </Link>
         </li>
         <li className="nav-item text-nowrap">
           <Link to="login" className="nav-link" onClick={onLogout}>
