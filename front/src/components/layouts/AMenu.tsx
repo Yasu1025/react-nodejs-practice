@@ -21,6 +21,12 @@ export const AMenu: VFC = memo(() => {
               Users
             </NavLink>
           </li>
+          <li className="nav-item">
+            <NavLink to="/roles" className="nav-link">
+              <span data-feather="home"></span>
+              Roles
+            </NavLink>
+          </li>
         </ul>
       </div>
     </nav>
