@@ -17,6 +17,12 @@ export const Users: VFC = memo(() => {
     setPage(page + 1)
   }
 
+  const onDelete = async (id: number) => {
+    if (window.confirm('Are you sure you want to delete this record?')) {
+      await axios.delete(`/api/users/${id}`)
+    }
+  }
+
   useEffect(() => {
     const getUsers = async () => {
       const { data } = await axios.get(`/api/users?page=${page}`)
@@ -37,7 +43,7 @@ export const Users: VFC = memo(() => {
       setLastPage(data.meta.last_page)
     }
     getUsers()
-  }, [page])
+  }, [page, onDelete])
 
   return (
     <AWrapper>
@@ -59,7 +65,16 @@ export const Users: VFC = memo(() => {
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>{user.role && user.role.name}</td>
-                <td>Action todo</td>
+                <td>
+                  <div className="btn-group mr-2">
+                    <button
+                      className="btn btn-sm btn-outline-danger"
+                      onClick={() => onDelete(user.id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </td>
               </tr>
             ))}
           </tbody>
