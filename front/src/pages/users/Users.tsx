@@ -1,7 +1,8 @@
 import { VFC, memo, useEffect, useState } from 'react'
-import { AWrapper } from '../components/layouts/AWrapper'
+import { AWrapper } from '../../components/layouts/AWrapper'
 import axios from 'axios'
-import { User } from '../models/User'
+import { User } from '../../models/User'
+import { Link } from 'react-router-dom'
 
 export const Users: VFC = memo(() => {
   const [users, setUsers] = useState<User[]>([])
@@ -48,6 +49,14 @@ export const Users: VFC = memo(() => {
   return (
     <AWrapper>
       <div className="table-responsive">
+        <div className="pt-3 pd-2 mb-3 border-bottom">
+          <Link
+            to="/users/create"
+            className="btn btn-sm btn-outline-secondary mb-3"
+          >
+            Add
+          </Link>
+        </div>
         <table className="table table-striped table-sm">
           <thead>
             <tr>
