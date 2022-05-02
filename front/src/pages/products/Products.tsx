@@ -45,7 +45,7 @@ export const Products: VFC = memo(() => {
       <div className="table-responsive">
         <div className="pt-3 pd-2 mb-3 border-bottom">
           <Link
-            to="/users/create"
+            to="/products/create"
             className="btn btn-sm btn-outline-secondary mb-3"
           >
             Add

@@ -1,80 +1,77 @@
 import { VFC, memo, useState, useEffect } from 'react'
 import { AWrapper } from '../../components/layouts/AWrapper'
 import axios from 'axios'
-import { Role } from '../../models/Role'
 import { useNavigate, Link } from 'react-router-dom'
+import { ImageUpload } from '../../components/ImageUpload'
 
 export const ProductsCreate: VFC = memo(() => {
   const navigate = useNavigate()
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [email, setEmail] = useState('')
-  const [roleId, setRoleId] = useState(0)
-  const [roles, setRoles] = useState<Role[]>([])
+  const [name, setName] = useState('')
+  const [description, setDescription] = useState('')
+  const [image, setImage] = useState('')
+  const [price, setPrice] = useState(0)
 
   const onSubmit = async (e: React.MouseEvent<HTMLFormElement>) => {
     e.preventDefault()
-    await axios.post('/api/users', {
-      first_name: firstName,
-      last_name: lastName,
-      email,
-      role_id: roleId,
+    await axios.post('/api/products', {
+      name,
+      description,
+      image,
+      price,
     })
 
-    navigate('/users')
+    navigate('/products')
   }
 
-  useEffect(() => {
-    const getRoles = async () => {
-      const { data } = await axios.get('/api/roles')
-      setRoles(data)
-    }
+  // useEffect(() => {
+  //   const getRoles = async () => {
+  //     const { data } = await axios.get('/api/roles')
+  //     setRoles(data)
+  //   }
 
-    getRoles()
-  }, [])
+  //   getRoles()
+  // }, [])
 
   return (
     <AWrapper>
       <form onSubmit={onSubmit}>
         <div className="mb-3">
-          <label>First Name</label>
+          <label>Name</label>
           <input
             className="form-control"
-            onChange={e => setFirstName(e.target.value)}
+            onChange={e => setName(e.target.value)}
           />
         </div>
         <div className="mb-3">
-          <label>Last Name</label>
-          <input
+          <label>Description</label>
+          <textarea
             className="form-control"
-            onChange={e => setLastName(e.target.value)}
-          />
+            onChange={e => setDescription(e.target.value)}
+          ></textarea>
         </div>
         <div className="mb-3">
-          <label>Email</label>
-          <input
-            type="email"
-            className="form-control"
-            onChange={e => setEmail(e.target.value)}
-          />
+          <label>Image</label>
+          <div className="input-group">
+            <input
+              className="form-control"
+              value={image}
+              onChange={e => setImage(e.target.value)}
+            />
+            <ImageUpload uploaded={setImage} />
+          </div>
         </div>
         <div className="mb-3">
-          <label>Role</label>
-          <select
+          <label>Price</label>
+          <input
+            type="number"
             className="form-control"
-            onChange={e => setRoleId(+e.target.value)}
-          >
-            {roles.map(role => (
-              <option key={role.id} value={role.id}>
-                {role.name}
-              </option>
-            ))}
-          </select>
+            onChange={e => setPrice(+e.target.value)}
+          />
         </div>
 
         <div className="btn-group mr-2">
           <button className="btn btn-outline-secondary">Save</button>
-          <Link to="/users" className="btn btn-outline-secondary">
+          <Link to="/products" className="btn btn-outline-secondary">
             Cancel
           </Link>
         </div>
