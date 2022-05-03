@@ -33,12 +33,12 @@ export const AHeader: VFC = memo(() => {
       </Link>
       <ul className="navbar-nav px-3">
         <li className="nav-item text-nowrap">
-          <Link to="profile" className="nav-link">
+          <Link to="/profile" className="nav-link">
             {user?.name}
           </Link>
         </li>
         <li className="nav-item text-nowrap">
-          <Link to="login" className="nav-link" onClick={onLogout}>
+          <Link to="/login" className="nav-link" onClick={onLogout}>
             Log out
           </Link>
         </li>

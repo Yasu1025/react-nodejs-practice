@@ -1,6 +1,6 @@
 import { VFC, memo } from 'react'
 import { Route, Routes } from 'react-router-dom'
-import { Dashboard } from '../pages/Dashboard'
+import { Dashboard } from '../pages/dashboard'
 import { Users } from '../pages/users/Users'
 import { Register } from '../pages/Register'
 import { Login } from '../pages/Login'
@@ -13,10 +13,12 @@ import { ProductsCreate } from '../pages/products/ProductCreate'
 import { ProductsEdit } from '../pages/products/ProductEdit'
 import { Products } from '../pages/products/Products'
 import { Orders } from '../pages/orders/Orders'
+import { Profile } from '../pages/Profile'
 
 export const AppRouter: VFC = memo(() => (
   <Routes>
     <Route path="/" element={<Dashboard />} />
+    <Route path="/profile" element={<Profile />} />
     <Route path="/register" element={<Register />} />
     <Route path="/login" element={<Login />} />
     <Route path="/users" element={<Users />} />
