@@ -42,14 +42,6 @@ export const Orders: VFC = memo(() => {
   return (
     <AWrapper>
       <div className="table-responsive">
-        <div className="pt-3 pd-2 mb-3 border-bottom">
-          <Link
-            to="/products/create"
-            className="btn btn-sm btn-outline-secondary mb-3"
-          >
-            Add
-          </Link>
-        </div>
         <table className="table table-striped table-sm">
           <thead>
             <tr>
