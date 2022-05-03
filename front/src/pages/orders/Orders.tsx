@@ -29,6 +29,22 @@ export const Orders: VFC = memo(() => {
     setSelectedOrder([...selectedOrder, id])
   }
 
+  const onExportCSV = async () => {
+    const { data } = await axios.post(
+      '/api/orders/export',
+      {},
+      {
+        responseType: 'blob',
+      }
+    )
+    const blob = new Blob([data], { type: 'text/csv' })
+    const url = window.URL.createObjectURL(data)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = 'orders.csv'
+    link.click()
+  }
+
   useEffect(() => {
     const getUsers = async () => {
       const { data } = await axios.get(`/api/orders?page=${page}`)
@@ -41,6 +57,14 @@ export const Orders: VFC = memo(() => {
 
   return (
     <AWrapper>
+      <div className="pt-3 pb-2 mb-3 border-bottom">
+        <button
+          className="btn btn-sm btn-outline-secondary"
+          onClick={onExportCSV}
+        >
+          Export CSV
+        </button>
+      </div>
       <div className="table-responsive">
         <table className="table table-striped table-sm">
           <thead>
