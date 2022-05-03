@@ -1,7 +1,6 @@
 import { VFC, memo, useEffect, useState } from 'react'
 import { AWrapper } from '../../components/layouts/AWrapper'
 import axios from 'axios'
-import { User } from '../../models/User'
 import { Link } from 'react-router-dom'
 import { Product } from '../../models/Product'
 import { Paginator } from '../../components/Paginator'

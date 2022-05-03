@@ -12,6 +12,7 @@ import { RoleEdit } from '../pages/roles/RoleEdit'
 import { ProductsCreate } from '../pages/products/ProductCreate'
 import { ProductsEdit } from '../pages/products/ProductEdit'
 import { Products } from '../pages/products/Products'
+import { Orders } from '../pages/orders/Orders'
 
 export const AppRouter: VFC = memo(() => (
   <Routes>
@@ -27,5 +28,6 @@ export const AppRouter: VFC = memo(() => (
     <Route path="/products" element={<Products />} />
     <Route path="/products/create" element={<ProductsCreate />} />
     <Route path="/products/:id" element={<ProductsEdit />} />
+    <Route path="/orders" element={<Orders />} />
   </Routes>
 ))

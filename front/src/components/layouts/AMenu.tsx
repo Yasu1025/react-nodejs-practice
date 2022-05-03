@@ -33,6 +33,12 @@ export const AMenu: VFC = memo(() => {
               Products
             </NavLink>
           </li>
+          <li className="nav-item">
+            <NavLink to="/orders" className="nav-link">
+              <span data-feather="home"></span>
+              Orders
+            </NavLink>
+          </li>
         </ul>
       </div>
     </nav>
